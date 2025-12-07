@@ -15,13 +15,10 @@ The project follows clean separation of responsibilities:
 
 ## 🧩 Features
 
-- Fully solvable random board generation  
+- Fully solvable random board generation (random walk algorithm)
 - Terminal-based UI  
 - Clean modular architecture  
 - Unit tests included  
-- Dockerized with multi-stage build (tiny runtime image)  
-- Poetry-managed virtual environment  
-- docker-compose support for both **running** and **testing**  
 
 ---
 
@@ -37,7 +34,7 @@ poetry env activate
 python fifteen/run.py
 ```
 
-Running with Docker
+Running with Docker:
 
 ```bash
 docker compose build
