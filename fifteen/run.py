@@ -1,10 +1,11 @@
 from game.game import Game
-from ui.renderer import Renderer
+from game.generator import GenerateRandomBoardWalk
 from ui.input_handler import InputHandler
+from ui.renderer import Renderer
 
 
 def run():
-    game = Game()
+    game = Game(generate_board_service=GenerateRandomBoardWalk())
 
     while game.running:
         Renderer.clear()

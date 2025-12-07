@@ -1,3 +1,4 @@
+import abc
 import random
 
 from .board import Board
@@ -31,31 +32,41 @@ def is_solvable(tiles: list[list[int]]) -> bool:
     return (inv + empty_row) % 2 == 0
 
 
-def generate_random_board_permutation() -> Board:
-    nums = list(range(16))
-    while True:
-        random.shuffle(nums)
-        tiles = [nums[i * 4 : (i + 1) * 4] for i in range(4)]
-        if is_solvable(tiles):
-            return Board(tiles)
+class GenerateBoardService(abc.ABC):
+    @abc.abstractmethod
+    def generate(self) -> Board: ...
 
 
-def generate_random_board_walk(steps: int = 200) -> Board:
-    board = Board(generate_solved())
+class GenerateRandomBoardWalk(GenerateBoardService):
+    def __init__(self, steps: int = 200):
+        self._steps = steps
 
-    for _ in range(steps):
-        empty = board.find_empty()
+    def generate(self) -> Board:
+        board = Board(generate_solved())
 
-        moves = []
-        if empty.row > 0:
-            moves.append("w")
-        if empty.row < 3:
-            moves.append("s")
-        if empty.col > 0:
-            moves.append("a")
-        if empty.col < 3:
-            moves.append("d")
+        for _ in range(self._steps):
+            empty = board.find_empty()
 
-        board.move(random.choice(moves))
+            moves = []
+            if empty.row > 0:
+                moves.append("w")
+            if empty.row < 3:
+                moves.append("s")
+            if empty.col > 0:
+                moves.append("a")
+            if empty.col < 3:
+                moves.append("d")
 
-    return board
+            board.move(random.choice(moves))
+
+        return board
+
+
+class GenerateRandomBoardPermutation(GenerateBoardService):
+    def generate(self) -> Board:
+        nums = list(range(16))
+        while True:
+            random.shuffle(nums)
+            tiles = [nums[i * 4 : (i + 1) * 4] for i in range(4)]
+            if is_solvable(tiles):
+                return Board(tiles)
