@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "fifteen"
+version = "0.1.0"
+description = ""
+authors = []
+readme = "README.md"
+packages = [{ include = "fifteen" }]
+
+[tool.poetry.dependencies]
+python = ">=3.13"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^9.0.2"
+
+[build-system]
+requires = ["poetry-core>=2.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+addopts = "-q"
+testpaths = ["tests"]

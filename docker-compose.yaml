@@ -1,0 +1,7 @@
+services:
+  puzzle:
+    build:
+      context: .
+    tty: true
+    stdin_open: true
+    entrypoint: ["python", "fifteen/run.py"]
